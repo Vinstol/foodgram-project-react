@@ -13,7 +13,7 @@ from recipes.models import (Ingredient, RecipeIngredients, Tag,
 from recipes.serializers import (IngredientsSerializer, TagsSerializer,
                           ShowRecipeFullSerializer, AddRecipeSerializer,
                           FavouriteSerializer, ShoppingListSerializer)
-from recipes.permissions import IsAuthorOrAdmin
+from recipes.permissions import IsAuthorOrAdmin #, AdminOrAuthorOrReadOnly
 
 
 class RetriveAndListViewSet(
@@ -24,7 +24,7 @@ class RetriveAndListViewSet(
 
 
 class IngredientsViewSet(RetriveAndListViewSet):
-    queryset = Ingredient.objects.all()
+    queryset = Ingredient.objects.all().order_by('id')
     serializer_class = IngredientsSerializer
     permission_classes = [permissions.AllowAny]
     filter_backends = [DjangoFilterBackend]
@@ -54,6 +54,9 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, permission_classes=[IsAuthorOrAdmin])
     def favorite(self, request, pk):
+        """Кастомный метод обработки эндпоинта ./favorite/."""
+        if request.user.is_anonymous:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
         data = {'user': request.user.id, 'recipe': pk}
         serializer = FavouriteSerializer(data=data,
                                          context={'request': request})
@@ -63,14 +66,24 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @favorite.mapping.delete
     def delete_favorite(self, request, pk):
-        user = request.user
+        if request.user.is_anonymous:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
         recipe = get_object_or_404(Recipe, id=pk)
-        favorite = get_object_or_404(Favorite, user=user, recipe=recipe)
-        favorite.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        try:
+            favorite = Favorite.objects.get(user=request.user, recipe=recipe)
+            favorite.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Favorite.DoesNotExist:
+            return Response(
+                'Данный рецепт уже отсутствует в избранном.', 
+                status=status.HTTP_400_BAD_REQUEST
+            )
 
     @action(detail=True, permission_classes=[IsAuthorOrAdmin])
     def shopping_cart(self, request, pk):
+        """Кастомный метод обработки эндпоинта ./shopping_cart/."""
+        if request.user.is_anonymous:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
         data = {'user': request.user.id, 'recipe': pk}
         serializer = ShoppingListSerializer(data=data,
                                             context={'request': request})
@@ -80,18 +93,32 @@ class RecipeViewSet(viewsets.ModelViewSet):
 
     @shopping_cart.mapping.delete
     def delete_shopping_cart(self, request, pk):
-        user = request.user
-        recipe = get_object_or_404(Recipe, id=pk)
-        shopping_list = get_object_or_404(ShoppingList,
-                                          user=user, recipe=recipe)
-        shopping_list.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        if request.user.is_anonymous:
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+        try:
+            recipe = Recipe.objects.get(id=pk)
+            shopping_list = ShoppingList.objects.get(user=request.user,
+                                                     recipe=recipe)
+            shopping_list.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+        except Recipe.DoesNotExist:
+            return Response(
+                'Данный рецепт уже отсутствует в списке покупок.', 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        except ShoppingList.DoesNotExist:
+            return Response(
+                'Данный рецепт уже отсутствует в списке покупок.', 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
 
     @action(detail=False, permission_classes=[permissions.IsAuthenticated])
     def download_shopping_cart(self, request):
-        user_shopping_list = request.user.shopping_list.all()
-        to_buy = get_ingredients_list(user_shopping_list)
-        return download_file_response(to_buy, 'to_buy.txt')
+        """Кастомный метод обработки эндпоинта ./download_shopping_cart/."""
+        shopping_list = request.user.shopping_list.all()
+        to_buy = get_ingredients_list(shopping_list)
+        return download_response(to_buy, 'Список покупок.txt')
 
 
 def get_ingredients_list(recipes_list):
@@ -116,7 +143,7 @@ def get_ingredients_list(recipes_list):
     return to_buy
 
 
-def download_file_response(list_to_download, filename):
-    response = HttpResponse(list_to_download, 'Content-Type: text/plain')
+def download_response(download_list, filename):
+    response = HttpResponse(download_list, 'Content-Type: text/plain')
     response['Content-Disposition'] = f'attachment; filename="{filename}"'
     return response

@@ -12,18 +12,22 @@ User = get_user_model()
 
 
 class IngredientsSerializer(serializers.ModelSerializer):
+    """Сериализатор, предоставляющий стоковые поля модели Ingredient."""
     class Meta:
         model = Ingredient
         fields = ('id', 'name', 'measurement_unit')
 
 
 class TagsSerializer(serializers.ModelSerializer):
+    """Сериализатор, предоставляющий стоковые поля модели Tag."""
     class Meta:
         model = Tag
         fields = ('id', 'name', 'color', 'slug')
 
 
 class ShowRecipeIngredientsSerializer(serializers.ModelSerializer):
+    """Сериализатор, предоставляющий только для чтения стоковые поля модели
+    Ingredient, а также стоковое поле amount модели RecipeIngredients."""
     id = serializers.ReadOnlyField(source='ingredient.id')
     name = serializers.ReadOnlyField(source='ingredient.name')
     measurement_unit = serializers.ReadOnlyField(
@@ -35,12 +39,15 @@ class ShowRecipeIngredientsSerializer(serializers.ModelSerializer):
 
 
 class ShowRecipeSerializer(serializers.ModelSerializer):
+    """Сериализатор, предоставляющий только уникальные поля модели Recipe."""
     class Meta:
         model = Recipe
         fields = ('id', 'name', 'image', 'cooking_time')
 
 
 class ShowRecipeFullSerializer(serializers.ModelSerializer):
+    """Сериализатор, предоставляющий уникальные поля модели Recipe, а также 
+    поля, в которые передаются объекты связных моделей."""
     tags = TagsSerializer(many=True, read_only=True)
     author = CustomUserSerializer(read_only=True)
     ingredients = serializers.SerializerMethodField()
@@ -55,7 +62,7 @@ class ShowRecipeFullSerializer(serializers.ModelSerializer):
             'author',
             'ingredients',
             'is_favorited',
-            'is_in_shopping_cart'
+            'is_in_shopping_cart',
             'name',
             'image',
             'text',
@@ -81,6 +88,8 @@ class ShowRecipeFullSerializer(serializers.ModelSerializer):
 
 
 class AddRecipeIngredientsSerializer(serializers.ModelSerializer):
+    """Сериализатор, позволяющий присваивать количество ингредиентов к 
+    ингредиенту с конкретным id."""
     id = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
     amount = serializers.IntegerField()
 
@@ -90,11 +99,13 @@ class AddRecipeIngredientsSerializer(serializers.ModelSerializer):
 
 
 class AddRecipeSerializer(serializers.ModelSerializer):
+    """Сериализатор, создать новый рецепт с указанием полей связных моделей."""
     image = Base64ImageField()
     author = CustomUserSerializer(read_only=True)
     ingredients = AddRecipeIngredientsSerializer(many=True)
-    tags = serializers.PrimaryKeyRelatedField(queryset=Tag.objects.all(),
-                                              many=True)
+    tags = serializers.PrimaryKeyRelatedField(
+        queryset=Tag.objects.all(), many=True
+    )
     cooking_time = serializers.IntegerField()
 
     class Meta:
@@ -133,7 +144,6 @@ class AddRecipeSerializer(serializers.ModelSerializer):
                 recipe=recipe,
                 ingredient=ingredient_id
             ).exists():
-                # amount += F('amount')
                 amount += ingredient['amount']
             RecipeIngredients.objects.update_or_create(
                 recipe=recipe,
