@@ -3,7 +3,6 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECRET_KEY = os.getenv('SECRET_KEY', default='django-insecure-4e-6h1o^28f3u4rma(vj_99*p!j9g=1ojao_f53^iyqx0u_x7n')
 SECRET_KEY = 'django-insecure-9#n#nx+&aqt74ci-joumwkpe8cur*-=3klz6auh&1wdkl$2ffg'
 
 DEBUG = True
@@ -11,9 +10,7 @@ DEBUG = True
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
-    '*'
 ]
-
 
 INSTALLED_APPS = [
     'recipes',
@@ -62,22 +59,11 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'foodgram.wsgi.application'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': os.environ.get('ENGINE', default='django.db.backends.postgresql'),
-#         'NAME': os.environ.get('DB_NAME', default='postgres'),
-#         'USER': os.environ.get('DB_USER', default='postgres'),
-#         'PASSWORD': os.environ.get('DB_PASSWORD', default='postgres'),
-#         'HOST': os.environ.get('DB_HOST', default='db'),
-#         'PORT': os.environ.get('DB_PORT', default=5432)
-#     }
-# }
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    },
 }
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -101,31 +87,29 @@ REST_FRAMEWORK = {
     ),
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
-        # 'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 5
+    'PAGE_SIZE': 5,
 }
 
 DJOSER = {
-       'LOGIN_FIELD': 'email',
-       'SERIALIZERS': { 
-           'user_create': 'users.serializers.UserRegistrationSerializer',
-           'user': 'users.serializers.CustomUserSerializer',
-           'current_user': 'users.serializers.CustomUserSerializer',
-       },
-       'USER_ID_FIELD': 'id',
-       'HIDE_USERS': False,
-       'PERMISSIONS': {
-           'user': ['rest_framework.permissions.IsAuthenticated'],
-           'user_list': ['rest_framework.permissions.AllowAny']           
-       },
-       #'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
-   }
+    'LOGIN_FIELD': 'email',
+    'SERIALIZERS': {
+        'user_create': 'users.serializers.UserRegistrationSerializer',
+        'user': 'users.serializers.CustomUserSerializer',
+        'current_user': 'users.serializers.CustomUserSerializer',
+    },
+    'USER_ID_FIELD': 'id',
+    'HIDE_USERS': False,
+    'PERMISSIONS': {
+        'user': ['rest_framework.permissions.IsAuthenticated'],
+        'user_list': ['rest_framework.permissions.AllowAny'],
+    },
+}
 
 LANGUAGE_CODE = 'ru'
 

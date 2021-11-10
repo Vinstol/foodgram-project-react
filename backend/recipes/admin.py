@@ -1,35 +1,43 @@
 from django.contrib import admin
-from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredients,
-                            RecipeTags, ShoppingList, Tag)
+from recipes import models
 
-
-@admin.register(Tag)
+@admin.register(models.Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name', 'slug')
+    """Класс админимтрирования модели Tag."""
+
+    list_display = ('id', 'name', 'slug')
 
 
-@admin.register(Ingredient)
+@admin.register(models.Ingredient)
 class IngredientAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name', 'measurement_unit')
+    """Класс админимтрирования модели Ingredient."""
+
+    list_display = ('id', 'name', 'measurement_unit')
     list_filter = ['name']
     search_fields = ('name',)
 
 
 class RecipeIngredientsInline(admin.TabularInline):
-    model = RecipeIngredients
+    """Класс админимтрирования модели RecipeIngredients на странице Recipe."""
+
+    model = models.RecipeIngredients
     min_num = 1
     extra = 1
 
 
 class RecipeTagsInline(admin.TabularInline):
-    model = RecipeTags
+    """Класс админимтрирования модели RecipeTags на странице Recipe."""
+
+    model = models.RecipeTags
     min_num = 1
     extra = 0
 
 
-@admin.register(Recipe)
+@admin.register(models.Recipe)
 class RecipeAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'name', 'author', 'in_favorite')
+    """Класс админимтрирования модели Recipe."""
+
+    list_display = ('id', 'name', 'author', 'in_favorite')
     list_filter = ['name', 'author', 'tags']
     inlines = (RecipeIngredientsInline, RecipeTagsInline)
 
@@ -37,11 +45,15 @@ class RecipeAdmin(admin.ModelAdmin):
         return obj.in_favorite.all().count()
 
 
-@admin.register(Favorite)
+@admin.register(models.Favorite)
 class FavoriteAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'user', 'recipe')
+    """Класс админимтрирования модели Favorite."""
+
+    list_display = ('id', 'user', 'recipe')
 
 
-@admin.register(ShoppingList)
+@admin.register(models.ShoppingList)
 class ShoppingListAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'user', 'recipe')
+    """Класс админимтрирования модели ShoppingList."""
+
+    list_display = ('id', 'user', 'recipe')

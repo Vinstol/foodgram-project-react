@@ -1,10 +1,8 @@
 from django.contrib.auth import get_user_model
-from django.db.models import F
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 from users.serializers import CustomUserSerializer
-
 from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredients,
                             ShoppingList, Tag)
 
@@ -13,6 +11,7 @@ User = get_user_model()
 
 class IngredientsSerializer(serializers.ModelSerializer):
     """Сериализатор, предоставляющий стоковые поля модели Ingredient."""
+
     class Meta:
         model = Ingredient
         fields = ('id', 'name', 'measurement_unit')
@@ -20,18 +19,20 @@ class IngredientsSerializer(serializers.ModelSerializer):
 
 class TagsSerializer(serializers.ModelSerializer):
     """Сериализатор, предоставляющий стоковые поля модели Tag."""
+
     class Meta:
         model = Tag
         fields = ('id', 'name', 'color', 'slug')
 
 
 class ShowRecipeIngredientsSerializer(serializers.ModelSerializer):
-    """Сериализатор, предоставляющий только для чтения стоковые поля модели
-    Ingredient, а также стоковое поле amount модели RecipeIngredients."""
+    """Сериализатор препдставления ингредиентов в рецепте."""
+
     id = serializers.ReadOnlyField(source='ingredient.id')
     name = serializers.ReadOnlyField(source='ingredient.name')
     measurement_unit = serializers.ReadOnlyField(
-                       source='ingredient.measurement_unit')
+        source='ingredient.measurement_unit',
+    )
 
     class Meta:
         model = RecipeIngredients
@@ -40,14 +41,15 @@ class ShowRecipeIngredientsSerializer(serializers.ModelSerializer):
 
 class ShowRecipeSerializer(serializers.ModelSerializer):
     """Сериализатор, предоставляющий только уникальные поля модели Recipe."""
+
     class Meta:
         model = Recipe
         fields = ('id', 'name', 'image', 'cooking_time')
 
 
 class ShowRecipeFullSerializer(serializers.ModelSerializer):
-    """Сериализатор, предоставляющий уникальные поля модели Recipe, а также 
-    поля, в которые передаются объекты связных моделей."""
+    """Сериализатор представления всех параметров рецепта."""
+
     tags = TagsSerializer(many=True, read_only=True)
     author = CustomUserSerializer(read_only=True)
     ingredients = serializers.SerializerMethodField()
@@ -88,8 +90,8 @@ class ShowRecipeFullSerializer(serializers.ModelSerializer):
 
 
 class AddRecipeIngredientsSerializer(serializers.ModelSerializer):
-    """Сериализатор, позволяющий присваивать количество ингредиентов к 
-    ингредиенту с конкретным id."""
+    """Сериализатор, связывающий количество ингредиентов с ингредиентом."""
+
     id = serializers.PrimaryKeyRelatedField(queryset=Ingredient.objects.all())
     amount = serializers.IntegerField()
 
@@ -99,7 +101,8 @@ class AddRecipeIngredientsSerializer(serializers.ModelSerializer):
 
 
 class AddRecipeSerializer(serializers.ModelSerializer):
-    """Сериализатор, создать новый рецепт с указанием полей связных моделей."""
+    """Сериализатор, создающий новый рецепт."""
+
     image = Base64ImageField()
     author = CustomUserSerializer(read_only=True)
     ingredients = AddRecipeIngredientsSerializer(many=True)
@@ -110,16 +113,8 @@ class AddRecipeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Recipe
-        fields = (
-            'id',
-            'tags',
-            'author',
-            'ingredients',
-            'name',
-            'image',
-            'text',
-            'cooking_time'
-        )
+        fields = ('id', 'tags', 'author', 'ingredients',
+                  'name', 'image', 'text', 'cooking_time')
 
     def validate_ingredients(self, data):
         ingredients = self.initial_data.get('ingredients')
@@ -142,13 +137,13 @@ class AddRecipeSerializer(serializers.ModelSerializer):
             amount = ingredient['amount']
             if RecipeIngredients.objects.filter(
                 recipe=recipe,
-                ingredient=ingredient_id
+                ingredient=ingredient_id,
             ).exists():
                 amount += ingredient['amount']
             RecipeIngredients.objects.update_or_create(
                 recipe=recipe,
                 ingredient=ingredient_id,
-                defaults={'amount': amount}
+                defaults={'amount': amount},
             )
 
     def create(self, validated_data):
@@ -177,14 +172,15 @@ class AddRecipeSerializer(serializers.ModelSerializer):
         return recipe
 
     def to_representation(self, recipe):
-        data = ShowRecipeSerializer(
+        return ShowRecipeSerializer(
             recipe,
-            context={'request': self.context.get('request')}
+            context={'request': self.context.get('request')},
         ).data
-        return data
 
 
 class FavouriteSerializer(serializers.ModelSerializer):
+    """Сериализатор, добавляющий рецепт в избранное."""
+
     recipe = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all())
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 
@@ -206,6 +202,8 @@ class FavouriteSerializer(serializers.ModelSerializer):
 
 
 class ShoppingListSerializer(serializers.ModelSerializer):
+    """Сериализатор, создающий список покупок."""
+
     recipe = serializers.PrimaryKeyRelatedField(queryset=Recipe.objects.all())
     user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
 

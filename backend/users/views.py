@@ -1,19 +1,18 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
-from rest_framework import generics, status 
+from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
 from foodgram.pagination import CustomPageNumberPaginator
 from users.models import Follow
-from users.serializers import FollowSerializer, ShowFollowSerializer
+from users.serializers import FollowSerializer, ShowFollowersSerializer
 
 User = get_user_model()
 
 
 class FollowApiView(APIView):
-    permission_classes = [IsAuthenticated, ]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, id):
         data = {'user': request.user.id, 'author': id}
@@ -31,21 +30,21 @@ class FollowApiView(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
         except Follow.DoesNotExist:
             return Response(
-                'Ошибка отписки', status=status.HTTP_400_BAD_REQUEST
+                'Ошибка отписки',
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
-        
-class ListFollowViewSet(generics.ListAPIView):
-    # queryset = User.objects.all()
-    permission_classes = [IsAuthenticated, ]
-    serializer_class = ShowFollowSerializer
-    pagination_class = CustomPageNumberPaginator
 
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        context.update({'request': self.request})
-        return context
+class ListFollowViewSet(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = ShowFollowersSerializer
+    pagination_class = CustomPageNumberPaginator
 
     def get_queryset(self):
         user = self.request.user
-        return User.objects.filter(author__user=user)
+        if User.objects.filter(following__user=user) is None:
+            return Response(
+                'У Вас нет подписчиков!',
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        return User.objects.filter(following__user=user)
