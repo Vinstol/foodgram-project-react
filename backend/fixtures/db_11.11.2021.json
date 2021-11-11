@@ -17568,14 +17568,25 @@
   "fields": {
     "author": 4,
     "name": "Сендвич с ветчиной и сыром",
-    "image": "recipes/сендвич.jpg",
-    "text": "1. Подготовим продукты. Количество ветчины, помидора и салата рассчитывайте в зависимости от их размера.\r\n2. В первую очередь надо поджарить ломтики хлеба. Делаем это или в тостере, или на сковороде-гриль, как я.\r\n3. Листья салата надо хорошо промыть и обсушить бумажным полотенцем. Они не должны быть мокрыми, иначе хлеб размокнет и будет не вкусным.\r\n4. Помидор нарезаем тонкими ломтиками.\r\n5. Смазываем один кусочек хлеба майонезом.\r\n6. Кладем на него салатные листья. У меня поместилось два маленьких.\r\n7. На листья укладываем ломтики помидора.\r\n8. Следующий слой - ветчина. И снова салатные листья.\r\n9. Сверху кладем порционные кусочки плавленного сыра.\r\n10. Накрываем все кусочком хлеба. Слегка прижимаем сверху.\r\n11. Традиционно сэндвичи разрезают по диагонали, чтобы их было удобно есть. Можете не резать, а съесть прямо целым. Приятного аппетита!",
+    "image": "recipes/6b5f0af0-951e-4a91-b029-9d09dc974328.jpg",
+    "text": "1. Подготовим продукты. Количество ветчины, помидора и салата рассчитывайте в зависимости от их размера. 2. В первую очередь надо поджарить ломтики хлеба. Делаем это или в тостере, или на сковороде-гриль, как я. 3. Листья салата надо хорошо промыть и обсушить бумажным полотенцем. Они не должны быть мокрыми, иначе хлеб размокнет и будет не вкусным. 4. Помидор нарезаем тонкими ломтиками. 5. Смазываем один кусочек хлеба майонезом. 6. Кладем на него салатные листья. У меня поместилось два маленьких. 7. На листья укладываем ломтики помидора. 8. Следующий слой - ветчина. И снова салатные листья. 9. Сверху кладем порционные кусочки плавленного сыра. 10. Накрываем все кусочком хлеба. Слегка прижимаем сверху. 11. Традиционно сэндвичи разрезают по диагонали, чтобы их было удобно есть. Можете не резать, а съесть прямо целым. Приятного аппетита!",
+    "cooking_time": 100
+  }
+},
+{
+  "model": "recipes.recipe",
+  "pk": 8,
+  "fields": {
+    "author": 1,
+    "name": "Манная каша",
+    "image": "recipes/2511642d-4c32-41f1-b54c-0077843bb42a.jpg",
+    "text": "1. Haливaeм в кacтpюлю мoлoкo, клaдeм в нeгo coль и caxap. 2. Глaвный ceкpeт вapки кaши бeз кoмoчкoв – этo дoбaвлять мaнку в xoлoднoe мoлoкo и тoлькo пocлe этoгo cтaвить eгo зaкипaть! 3. Bce paзмeшивaeм и cтaвим нa плиту гoтoвитьcя. 4. Ждeм, пoкa нaшa кaшa зaкипит, пepиoдичecки пoмeшивaя, чтoбы избeжaть пoдгopaния. 5. Пocлe зaкипaния вapим 1-2 минуты и cнимaeм кacтpюлю c oгня. 6. Haклaдывaeм кaшу в тapeлку и нacлaждaeмcя ee вкуcoм и пpиятнoй кoнcиcтeнциeй бeз кoмoчкoв!",
     "cooking_time": 10
   }
 },
 {
   "model": "recipes.recipeingredients",
-  "pk": 1,
+  "pk": 80,
   "fields": {
     "recipe": 1,
     "ingredient": 1999,
@@ -17584,7 +17595,7 @@
 },
 {
   "model": "recipes.recipeingredients",
-  "pk": 2,
+  "pk": 81,
   "fields": {
     "recipe": 1,
     "ingredient": 193,
@@ -17593,7 +17604,7 @@
 },
 {
   "model": "recipes.recipeingredients",
-  "pk": 3,
+  "pk": 82,
   "fields": {
     "recipe": 1,
     "ingredient": 1344,
@@ -17602,7 +17613,7 @@
 },
 {
   "model": "recipes.recipeingredients",
-  "pk": 4,
+  "pk": 83,
   "fields": {
     "recipe": 1,
     "ingredient": 1529,
@@ -17611,7 +17622,7 @@
 },
 {
   "model": "recipes.recipeingredients",
-  "pk": 5,
+  "pk": 84,
   "fields": {
     "recipe": 1,
     "ingredient": 1781,
@@ -17620,11 +17631,74 @@
 },
 {
   "model": "recipes.recipeingredients",
-  "pk": 6,
+  "pk": 85,
   "fields": {
     "recipe": 1,
     "ingredient": 900,
     "amount": 10
+  }
+},
+{
+  "model": "recipes.recipeingredients",
+  "pk": 86,
+  "fields": {
+    "recipe": 1,
+    "ingredient": 251,
+    "amount": 1000
+  }
+},
+{
+  "model": "recipes.recipeingredients",
+  "pk": 111,
+  "fields": {
+    "recipe": 8,
+    "ingredient": 1033,
+    "amount": 200
+  }
+},
+{
+  "model": "recipes.recipeingredients",
+  "pk": 112,
+  "fields": {
+    "recipe": 8,
+    "ingredient": 251,
+    "amount": 200
+  }
+},
+{
+  "model": "recipes.recipeingredients",
+  "pk": 113,
+  "fields": {
+    "recipe": 8,
+    "ingredient": 960,
+    "amount": 50
+  }
+},
+{
+  "model": "recipes.recipeingredients",
+  "pk": 114,
+  "fields": {
+    "recipe": 8,
+    "ingredient": 1687,
+    "amount": 5
+  }
+},
+{
+  "model": "recipes.recipeingredients",
+  "pk": 115,
+  "fields": {
+    "recipe": 8,
+    "ingredient": 1549,
+    "amount": 25
+  }
+},
+{
+  "model": "recipes.recipeingredients",
+  "pk": 116,
+  "fields": {
+    "recipe": 8,
+    "ingredient": 1649,
+    "amount": 60
   }
 },
 {
@@ -17644,6 +17718,22 @@
   }
 },
 {
+  "model": "recipes.recipetags",
+  "pk": 15,
+  "fields": {
+    "recipe": 8,
+    "tag": 1
+  }
+},
+{
+  "model": "recipes.recipetags",
+  "pk": 16,
+  "fields": {
+    "recipe": 8,
+    "tag": 2
+  }
+},
+{
   "model": "recipes.favorite",
   "pk": 1,
   "fields": {
@@ -17653,10 +17743,26 @@
 },
 {
   "model": "recipes.favorite",
-  "pk": 2,
+  "pk": 7,
   "fields": {
     "user": 1,
     "recipe": 1
+  }
+},
+{
+  "model": "recipes.favorite",
+  "pk": 9,
+  "fields": {
+    "user": 5,
+    "recipe": 1
+  }
+},
+{
+  "model": "recipes.favorite",
+  "pk": 12,
+  "fields": {
+    "user": 5,
+    "recipe": 8
   }
 },
 {
@@ -17664,6 +17770,30 @@
   "pk": 1,
   "fields": {
     "user": 4,
+    "recipe": 1
+  }
+},
+{
+  "model": "recipes.shoppinglist",
+  "pk": 5,
+  "fields": {
+    "user": 1,
+    "recipe": 1
+  }
+},
+{
+  "model": "recipes.shoppinglist",
+  "pk": 12,
+  "fields": {
+    "user": 5,
+    "recipe": 8
+  }
+},
+{
+  "model": "recipes.shoppinglist",
+  "pk": 14,
+  "fields": {
+    "user": 5,
     "recipe": 1
   }
 },
@@ -17740,6 +17870,24 @@
   }
 },
 {
+  "model": "users.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$vArkAlxNJU4pV4PCemBfYz$djUq20b8bg8TRg2I0mn8u0pCLd4V+nnzfzapAfdg9jA=",
+    "last_login": "2021-11-08T13:23:28.260Z",
+    "is_superuser": false,
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2021-11-08T13:16:08.302Z",
+    "email": "user2@ya.ru",
+    "username": "user2",
+    "first_name": "user2",
+    "last_name": "user2",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
   "model": "users.follow",
   "pk": 2,
   "fields": {
@@ -17761,6 +17909,22 @@
   "fields": {
     "user": 4,
     "author": 1
+  }
+},
+{
+  "model": "users.follow",
+  "pk": 23,
+  "fields": {
+    "user": 5,
+    "author": 1
+  }
+},
+{
+  "model": "users.follow",
+  "pk": 25,
+  "fields": {
+    "user": 5,
+    "author": 4
   }
 },
 {
@@ -17863,6 +18027,19 @@
     "content_type": 16,
     "object_id": "2",
     "object_repr": "Favorite object (2)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2021-11-07T17:55:45.362Z",
+    "user": 3,
+    "content_type": 16,
+    "object_id": "3",
+    "object_repr": "Favorite object (3)",
     "action_flag": 1,
     "change_message": "[{\"added\": {}}]"
   }
@@ -18585,6 +18762,14 @@
   "fields": {
     "session_data": ".eJxVjDsOwjAQRO_iGlnJrr-U9DmDtf7hALKlOKkQdyeRUoCmm_dm3szRtha39bS4ObIrQ3b57TyFZ6oHiA-q98ZDq-sye34o_KSdTy2m1-10_w4K9bKvRxkEWkEi7NEDmEDSgJSUMmWDSkEWKMAMOHowOWmrrMxeo0TQiIF9vsILNr8:1mjdib:ChyaK-_ur3FoEJZZDBkENKhLNd3IxOtMc5QsK3xD8jo",
     "expire_date": "2021-11-21T08:40:01.216Z"
+  }
+},
+{
+  "model": "authtoken.token",
+  "pk": "8f743803d96f793c9dc842d56192d1741201019f",
+  "fields": {
+    "user": 5,
+    "created": "2021-11-08T13:23:28.247Z"
   }
 },
 {

@@ -60,6 +60,7 @@ coverage.xml
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
+backend/db.sqlite3
 
 # Flask stuff:
 instance/
@@ -148,6 +149,8 @@ dmypy.json
 # папки со статикой и медиа
 static/
 media/
+backend/static/
+backend/media/
 
 # Flake8 linter
 .flake8

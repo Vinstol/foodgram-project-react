@@ -1,5 +1,4 @@
 {
-    // тут может быть еще какой-то код
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true
 }
