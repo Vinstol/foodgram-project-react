@@ -154,3 +154,6 @@ backend/media/
 
 # Flake8 linter
 .flake8
+
+# DB fixtures
+backend/fixtures/db_11.11.2021.json
