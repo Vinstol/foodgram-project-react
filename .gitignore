@@ -156,5 +156,5 @@ backend/media/
 .flake8
 
 # DB fixtures
-backend/fixtures/db_11.11.2021.json
-.db_11.11.2021.json
+# backend/fixtures/db_11.11.2021.json
+# .db_11.11.2021.json
