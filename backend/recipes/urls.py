@@ -9,5 +9,5 @@ router.register('recipes', RecipeViewSet, basename='recipes')
 router.register('tags', TagsViewSet, basename='tags')
 
 urlpatterns = [
-     path('', include(router.urls)),
+    path('', include(router.urls)),
 ]

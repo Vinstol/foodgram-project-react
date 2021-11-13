@@ -5,7 +5,7 @@ from recipes.models import Ingredient, Recipe
 class IngredientsFilter(filters.FilterSet):
     name = filters.CharFilter(
         field_name='name',
-        lookup_expr='istartswith',
+        lookup_expr='icontains',
     )
 
     class Meta:
@@ -16,6 +16,7 @@ class IngredientsFilter(filters.FilterSet):
 class RecipeFilter(filters.FilterSet):
     tags = filters.AllValuesMultipleFilter(
         field_name='tags__slug',
+        lookup_expr="iexact",
         label='Tags',
     )
     is_favorited = filters.BooleanFilter(

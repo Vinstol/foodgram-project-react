@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.http import HttpRequest  # build_absolute_uri
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
@@ -26,12 +27,21 @@ class TagsSerializer(serializers.ModelSerializer):
 
 
 class ShowRecipeIngredientsSerializer(serializers.ModelSerializer):
-    """Сериализатор препдставления ингредиентов в рецепте."""
+    """Сериализатор представления ингредиентов в рецепте."""
 
-    id = serializers.ReadOnlyField(source='ingredient.id')
-    name = serializers.ReadOnlyField(source='ingredient.name')
-    measurement_unit = serializers.ReadOnlyField(
-        source='ingredient.measurement_unit',
+    id = serializers.PrimaryKeyRelatedField(
+        read_only=True,
+        source='ingredient'
+    )
+    name = serializers.SlugRelatedField(
+        source='ingredient',
+        read_only=True,
+        slug_field='name'
+    )
+    measurement_unit = serializers.SlugRelatedField(
+        source='ingredient',
+        read_only=True,
+        slug_field='measurement_unit'
     )
 
     class Meta:
@@ -42,9 +52,15 @@ class ShowRecipeIngredientsSerializer(serializers.ModelSerializer):
 class ShowRecipeSerializer(serializers.ModelSerializer):
     """Сериализатор, предоставляющий только уникальные поля модели Recipe."""
 
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = Recipe
         fields = ('id', 'name', 'image', 'cooking_time')
+
+    def get_image(self, obj):
+        request = self.context.get('request')
+        return request.build_absolute_uri(obj.image.url)
 
 
 class ShowRecipeFullSerializer(serializers.ModelSerializer):
@@ -59,16 +75,9 @@ class ShowRecipeFullSerializer(serializers.ModelSerializer):
     class Meta:
         model = Recipe
         fields = (
-            'id',
-            'tags',
-            'author',
-            'ingredients',
-            'is_favorited',
-            'is_in_shopping_cart',
-            'name',
-            'image',
-            'text',
-            'cooking_time',
+            'id', 'tags', 'author', 'ingredients',
+            'is_favorited', 'is_in_shopping_cart',
+            'name', 'image', 'text', 'cooking_time',
         )
 
     def get_ingredients(self, obj):
