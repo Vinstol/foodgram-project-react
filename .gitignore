@@ -159,4 +159,4 @@ backend/media/
 backend/fixtures/db_13.11.2021.json
 
 # Local infrastruture files
-local_infra
+# local_infra/
