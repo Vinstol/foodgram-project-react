@@ -52,15 +52,15 @@ class ShowRecipeIngredientsSerializer(serializers.ModelSerializer):
 class ShowRecipeSerializer(serializers.ModelSerializer):
     """Сериализатор, предоставляющий только уникальные поля модели Recipe."""
 
-    image = serializers.SerializerMethodField()
+    # image = serializers.SerializerMethodField()
 
     class Meta:
         model = Recipe
         fields = ('id', 'name', 'image', 'cooking_time')
 
-    def get_image(self, obj):
-        request = self.context.get('request')
-        return request.build_absolute_uri(obj.image.url)
+    # def get_image(self, obj):
+    #     request = self.context.get('request')
+    #     return request.build_absolute_uri(obj.image.url)
 
 
 class ShowRecipeFullSerializer(serializers.ModelSerializer):
