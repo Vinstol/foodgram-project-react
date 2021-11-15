@@ -5,13 +5,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-9#n#nx+&aqt74ci-joumwkpe8cur*-=3klz6auh&1wdkl$2ffg'
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost',
     '84.201.142.222',
-    '*',
+    'vinstolbox.tk',
+    'www.vinstolbox.tk',
 ]
 
 INSTALLED_APPS = [
@@ -63,10 +64,15 @@ WSGI_APPLICATION = 'foodgram.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
+        'ENGINE': os.environ.get('DB_ENGINE', default='django.db.backends.sqlite3'),
+        'NAME': os.environ.get('DB_NAME', default='test'),
+        'USER': os.environ.get('DB_USER', default='test'),
+        'PASSWORD': os.environ.get('DB_PASSWORD', default='test.sqlite3'),
+        'HOST': os.environ.get('DB_HOST', default='localhost'),
+        'PORT': os.environ.get('DB_PORT')
+    }
 }
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {
