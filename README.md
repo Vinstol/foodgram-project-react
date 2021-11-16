@@ -21,7 +21,7 @@
 
 ## Для работы с удаленным сервером (на ubuntu):
 
-### Выполните вход на свой удаленный сервер. 
+### Выполните вход на свой удаленный сервер под своим именем пользователя (username). 
 ### Обновите список доступных к установке пакетов:
 - sudo apt update
 
@@ -32,11 +32,11 @@
 - sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 ### Локально отредактируйте файл infra/nginx.conf: 
-- в строке server_name впишите IP-адрес своего сервера (<host>).
+- в строке server_name впишите IP-адрес своего сервера (host).
 
 ### Скопируйте файлы docker-compose.yml и nginx.conf из директории infra на сервер:
-- scp docker-compose.yml <username>@<host>:/home/<username>/docker-compose.yml
-- scp nginx.conf <username>@<host>:/home/<username>/nginx.conf
+- scp docker-compose.yml username@host:/home/username/docker-compose.yml
+- scp nginx.conf username@host:/home/username/nginx.conf
 
 ### На сервере создайте файл .env и впишите в него следующие переменные окружения:
 #### (Либо создайте файл .env локально и скопируйте на сервер аналогично предыдущему пункту)
