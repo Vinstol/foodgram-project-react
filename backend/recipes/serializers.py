@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
+from rest_framework.validators import UniqueTogetherValidator
 
 from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
                             ShoppingList, Tag)
@@ -110,7 +111,8 @@ class AddRecipeSerializer(serializers.ModelSerializer):
     author = CustomUserSerializer(read_only=True)
     ingredients = AddRecipeIngredientsSerializer(many=True)
     tags = serializers.PrimaryKeyRelatedField(
-        queryset=Tag.objects.all(), many=True
+        queryset=Tag.objects.all(),
+        many=True,
     )
     cooking_time = serializers.IntegerField()
 
@@ -118,6 +120,10 @@ class AddRecipeSerializer(serializers.ModelSerializer):
         model = Recipe
         fields = ('id', 'tags', 'author', 'ingredients',
                   'name', 'image', 'text', 'cooking_time')
+        validators = [UniqueTogetherValidator(
+            queryset=Recipe.objects.all(),
+            fields=['name', 'tags'],
+        )]
 
     def validate_ingredients(self, data):
         ingredients = self.initial_data.get('ingredients')
