@@ -1,10 +1,11 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
-from rest_framework import serializers
 from djoser.serializers import UserCreateSerializer, UserSerializer
+from rest_framework import serializers, status
+from rest_framework.response import Response
+
 from recipes.models import Recipe
 from users.models import Follow
-
-RECIPES_LIMIT = 3
 
 User = get_user_model()
 
@@ -44,6 +45,13 @@ class FollowSerializer(serializers.ModelSerializer):
         fields = ('user', 'author')
 
     def validate(self, data):
+        try:
+            user = self.context.get('request').user
+        except User.DoesNotExist:
+            return Response(
+                'Такого пользователя не существует!.',
+                status=status.HTTP_400_BAD_REQUEST,
+            )
         user = self.context.get('request').user
         author_id = data['author'].id
         if Follow.objects.filter(user=user, author__id=author_id).exists():
@@ -90,11 +98,7 @@ class ShowFollowersSerializer(serializers.ModelSerializer):
 
     def get_recipes(self, obj):
         request = self.context.get('request')
-        recipes_limit = request.query_params.get('recipes_limit')
-        if recipes_limit is not None:
-            recipes = obj.recipes.all()[:(int(recipes_limit))]
-        else:
-            recipes = obj.recipes.all()
+        recipes = obj.recipes.all()[:(int(settings.RECIPES_LIMIT))]
         return FollowingRecipesSerializers(
             recipes,
             many=True,

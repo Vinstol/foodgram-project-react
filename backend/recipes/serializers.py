@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model
-from django.http import HttpRequest  # build_absolute_uri
 from drf_extra_fields.fields import Base64ImageField
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from users.serializers import CustomUserSerializer
-from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredients,
+
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
                             ShoppingList, Tag)
+from users.serializers import CustomUserSerializer
 
 User = get_user_model()
 
@@ -45,7 +45,7 @@ class ShowRecipeIngredientsSerializer(serializers.ModelSerializer):
     )
 
     class Meta:
-        model = RecipeIngredients
+        model = RecipeIngredient
         fields = ('id', 'name', 'measurement_unit', 'amount')
 
 
@@ -75,7 +75,7 @@ class ShowRecipeFullSerializer(serializers.ModelSerializer):
         )
 
     def get_ingredients(self, obj):
-        ingredients = RecipeIngredients.objects.filter(recipe=obj)
+        ingredients = RecipeIngredient.objects.filter(recipe=obj)
         return ShowRecipeIngredientsSerializer(ingredients, many=True).data
 
     def get_is_favorited(self, obj):
@@ -99,7 +99,7 @@ class AddRecipeIngredientsSerializer(serializers.ModelSerializer):
     amount = serializers.IntegerField()
 
     class Meta:
-        model = RecipeIngredients
+        model = RecipeIngredient
         fields = ('id', 'amount')
 
 
@@ -121,7 +121,7 @@ class AddRecipeSerializer(serializers.ModelSerializer):
 
     def validate_ingredients(self, data):
         ingredients = self.initial_data.get('ingredients')
-        if ingredients == []:
+        if not ingredients:
             raise ValidationError('Не выбрано ни одного ингредиента!')
         for ingredient in ingredients:
             if int(ingredient['amount']) <= 0:
@@ -138,12 +138,12 @@ class AddRecipeSerializer(serializers.ModelSerializer):
         for ingredient in ingredients:
             ingredient_id = ingredient['id']
             amount = ingredient['amount']
-            if RecipeIngredients.objects.filter(
+            if RecipeIngredient.objects.filter(
                 recipe=recipe,
                 ingredient=ingredient_id,
             ).exists():
                 amount += ingredient['amount']
-            RecipeIngredients.objects.update_or_create(
+            RecipeIngredient.objects.update_or_create(
                 recipe=recipe,
                 ingredient=ingredient_id,
                 defaults={'amount': amount},
@@ -159,11 +159,6 @@ class AddRecipeSerializer(serializers.ModelSerializer):
         return recipe
 
     def update(self, recipe, validated_data):
-        recipe.name = validated_data.get('name', recipe.name)
-        recipe.text = validated_data.get('text', recipe.text)
-        recipe.cooking_time = validated_data.get('cooking_time',
-                                                 recipe.cooking_time)
-        recipe.image = validated_data.get('image', recipe.image)
         if 'ingredients' in self.initial_data:
             ingredients = validated_data.pop('ingredients')
             recipe.ingredients.clear()
@@ -171,8 +166,8 @@ class AddRecipeSerializer(serializers.ModelSerializer):
         if 'tags' in self.initial_data:
             tags_data = validated_data.pop('tags')
             recipe.tags.set(tags_data)
-        recipe.save()
-        return recipe
+        super().update(recipe, validated_data)
+        return super().update(recipe, validated_data)
 
     def to_representation(self, recipe):
         return ShowRecipeSerializer(

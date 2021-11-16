@@ -1,5 +1,7 @@
 from django.contrib import admin
+
 from recipes import models
+
 
 @admin.register(models.Tag)
 class TagAdmin(admin.ModelAdmin):
@@ -17,18 +19,18 @@ class IngredientAdmin(admin.ModelAdmin):
     search_fields = ('name',)
 
 
-class RecipeIngredientsInline(admin.TabularInline):
-    """Класс админимтрирования модели RecipeIngredients на странице Recipe."""
+class RecipeIngredientInline(admin.TabularInline):
+    """Класс админимтрирования модели RecipeIngredient на странице Recipe."""
 
-    model = models.RecipeIngredients
+    model = models.RecipeIngredient
     min_num = 1
     extra = 1
 
 
-class RecipeTagsInline(admin.TabularInline):
-    """Класс админимтрирования модели RecipeTags на странице Recipe."""
+class RecipeTagInline(admin.TabularInline):
+    """Класс админимтрирования модели RecipeTag на странице Recipe."""
 
-    model = models.RecipeTags
+    model = models.RecipeTag
     min_num = 1
     extra = 0
 
@@ -39,7 +41,8 @@ class RecipeAdmin(admin.ModelAdmin):
 
     list_display = ('id', 'name', 'author', 'in_favorite')
     list_filter = ['name', 'author', 'tags']
-    inlines = (RecipeIngredientsInline, RecipeTagsInline)
+    inlines = (RecipeIngredientInline,)
+    inlines = (RecipeIngredientInline, RecipeTagInline)
 
     def in_favorite(self, obj):
         return obj.in_favorite.all().count()

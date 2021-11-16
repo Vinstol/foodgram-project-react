@@ -1,4 +1,5 @@
 import django_filters as filters
+
 from recipes.models import Ingredient, Recipe
 
 
@@ -46,5 +47,5 @@ class RecipeFilter(filters.FilterSet):
     def get_shopping(self, queryset, name, item_value):
         """Метод получения рецептов в списке покупок."""
         if item_value:
-            return Recipe.objects.filter(shoppinglist__user=self.request.user)
+            return Recipe.objects.filter(shopping_cart__user=self.request.user)
         return Recipe.objects.all()

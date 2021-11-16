@@ -10,18 +10,15 @@ class User(AbstractUser):
     )
     username = models.CharField(
         max_length=150,
-        blank=False,
         unique=True,
         verbose_name='Имя пользователя',
     )
     first_name = models.CharField(
         max_length=150,
-        blank=False,
         verbose_name='Имя',
     )
     last_name = models.CharField(
         max_length=150,
-        blank=False,
         verbose_name='Фамилия',
     )
 

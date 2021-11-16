@@ -3,9 +3,10 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-9#n#nx+&aqt74ci-joumwkpe8cur*-=3klz6auh&1wdkl$2ffg'
+SECRET_KEY = os.getenv('SECRET_KEY', default='django-insecure-9#n#nx+&aqt74ci-joumwkpe8cur*-=3klz6auh&1wdkl$2ffg')
 
-DEBUG = False
+
+DEBUG = True
 
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -61,6 +62,8 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'foodgram.wsgi.application'
+
+RECIPES_LIMIT = 3
 
 DATABASES = {
     'default': {

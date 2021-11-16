@@ -4,6 +4,7 @@ from rest_framework import generics, status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
 from foodgram.pagination import CustomPageNumberPaginator
 from users.models import Follow
 from users.serializers import FollowSerializer, ShowFollowersSerializer
@@ -42,9 +43,9 @@ class ListFollowViewSet(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        if User.objects.filter(following__user=user) is None:
-            return Response(
-                'У Вас нет подписчиков!',
-                status=status.HTTP_400_BAD_REQUEST,
-            )
-        return User.objects.filter(following__user=user)
+        if User.objects.filter(following__user=user).exists():
+            return User.objects.filter(following__user=user)
+        return Response(
+            'У Вас нет подписок!',
+            status=status.HTTP_400_BAD_REQUEST,
+        )

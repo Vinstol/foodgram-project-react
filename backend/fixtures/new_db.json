@@ -17651,7 +17651,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 111,
   "fields": {
     "recipe": 8,
@@ -17660,7 +17660,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 112,
   "fields": {
     "recipe": 8,
@@ -17669,7 +17669,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 113,
   "fields": {
     "recipe": 8,
@@ -17678,7 +17678,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 114,
   "fields": {
     "recipe": 8,
@@ -17687,7 +17687,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 115,
   "fields": {
     "recipe": 8,
@@ -17696,7 +17696,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 116,
   "fields": {
     "recipe": 8,
@@ -17705,7 +17705,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 120,
   "fields": {
     "recipe": 9,
@@ -17714,7 +17714,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 121,
   "fields": {
     "recipe": 9,
@@ -17723,7 +17723,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 122,
   "fields": {
     "recipe": 9,
@@ -17732,7 +17732,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 137,
   "fields": {
     "recipe": 10,
@@ -17741,7 +17741,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 138,
   "fields": {
     "recipe": 10,
@@ -17750,7 +17750,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 139,
   "fields": {
     "recipe": 10,
@@ -17759,7 +17759,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 140,
   "fields": {
     "recipe": 10,
@@ -17768,7 +17768,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 141,
   "fields": {
     "recipe": 11,
@@ -17777,7 +17777,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 142,
   "fields": {
     "recipe": 11,
@@ -17786,7 +17786,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 143,
   "fields": {
     "recipe": 11,
@@ -17795,7 +17795,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 144,
   "fields": {
     "recipe": 11,
@@ -17804,7 +17804,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 145,
   "fields": {
     "recipe": 11,
@@ -17813,7 +17813,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 146,
   "fields": {
     "recipe": 11,
@@ -17822,7 +17822,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 147,
   "fields": {
     "recipe": 12,
@@ -17831,7 +17831,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 148,
   "fields": {
     "recipe": 12,
@@ -17840,7 +17840,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 149,
   "fields": {
     "recipe": 12,
@@ -17849,7 +17849,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 150,
   "fields": {
     "recipe": 12,
@@ -17858,7 +17858,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 151,
   "fields": {
     "recipe": 12,
@@ -17867,7 +17867,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 152,
   "fields": {
     "recipe": 12,
@@ -17876,7 +17876,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 153,
   "fields": {
     "recipe": 12,
@@ -17885,7 +17885,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 154,
   "fields": {
     "recipe": 12,
@@ -17894,7 +17894,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 155,
   "fields": {
     "recipe": 12,
@@ -17903,7 +17903,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 156,
   "fields": {
     "recipe": 1,
@@ -17912,7 +17912,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 157,
   "fields": {
     "recipe": 1,
@@ -17921,7 +17921,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 158,
   "fields": {
     "recipe": 1,
@@ -17930,7 +17930,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 159,
   "fields": {
     "recipe": 1,
@@ -17939,7 +17939,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 160,
   "fields": {
     "recipe": 1,
@@ -17948,7 +17948,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 161,
   "fields": {
     "recipe": 1,
@@ -17957,7 +17957,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 162,
   "fields": {
     "recipe": 1,
@@ -17966,7 +17966,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 163,
   "fields": {
     "recipe": 13,
@@ -17975,7 +17975,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 164,
   "fields": {
     "recipe": 13,
@@ -17984,7 +17984,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 165,
   "fields": {
     "recipe": 13,
@@ -17993,7 +17993,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 166,
   "fields": {
     "recipe": 13,
@@ -18002,7 +18002,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 167,
   "fields": {
     "recipe": 14,
@@ -18011,7 +18011,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 168,
   "fields": {
     "recipe": 14,
@@ -18020,7 +18020,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 169,
   "fields": {
     "recipe": 14,
@@ -18029,7 +18029,7 @@
   }
 },
 {
-  "model": "recipes.recipeingredients",
+  "model": "recipes.recipeingredient",
   "pk": 170,
   "fields": {
     "recipe": 14,
@@ -18038,7 +18038,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 15,
   "fields": {
     "recipe": 8,
@@ -18046,7 +18046,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 16,
   "fields": {
     "recipe": 8,
@@ -18054,7 +18054,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 17,
   "fields": {
     "recipe": 9,
@@ -18062,7 +18062,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 18,
   "fields": {
     "recipe": 1,
@@ -18070,7 +18070,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 19,
   "fields": {
     "recipe": 10,
@@ -18078,7 +18078,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 20,
   "fields": {
     "recipe": 11,
@@ -18086,7 +18086,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 21,
   "fields": {
     "recipe": 11,
@@ -18094,7 +18094,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 22,
   "fields": {
     "recipe": 12,
@@ -18102,7 +18102,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 23,
   "fields": {
     "recipe": 12,
@@ -18110,7 +18110,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 24,
   "fields": {
     "recipe": 13,
@@ -18118,7 +18118,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 25,
   "fields": {
     "recipe": 13,
@@ -18126,7 +18126,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 26,
   "fields": {
     "recipe": 13,
@@ -18134,7 +18134,7 @@
   }
 },
 {
-  "model": "recipes.recipetags",
+  "model": "recipes.recipetag",
   "pk": 27,
   "fields": {
     "recipe": 14,

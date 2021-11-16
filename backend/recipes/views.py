@@ -1,27 +1,21 @@
-from django.http.response import HttpResponse
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import mixins, permissions, viewsets, status
+from rest_framework import permissions, viewsets, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
+
 from foodgram.pagination import CustomPageNumberPaginator
 from recipes.filters import IngredientsFilter, RecipeFilter
 from recipes.models import (
-    Favorite, Ingredient, Recipe, RecipeIngredients, ShoppingList, Tag,
+    Favorite, Ingredient, Recipe, RecipeIngredient, ShoppingList, Tag
 )
+from recipes.mixins import RetriveAndListViewSet
+from recipes.permissions import IsAuthorOrAdminOrReadOnly
 from recipes.serializers import (
     AddRecipeSerializer, FavouriteSerializer, IngredientsSerializer,
     ShoppingListSerializer, ShowRecipeFullSerializer, TagsSerializer,
 )
-from recipes.permissions import IsAuthorOrAdminOrReadOnly
-
-
-class RetriveAndListViewSet(
-        mixins.ListModelMixin,
-        mixins.RetrieveModelMixin,
-        viewsets.GenericViewSet,
-):
-    pass
+from recipes.utils import download_response, get_ingredients_list
 
 
 class IngredientsViewSet(RetriveAndListViewSet):
@@ -55,8 +49,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
     @action(detail=True, permission_classes=[IsAuthorOrAdminOrReadOnly])
     def favorite(self, request, pk):
         """Кастомный метод обработки эндпоинта ./favorite/."""
-        if request.user.is_anonymous:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
         data = {'user': request.user.id, 'recipe': pk}
         serializer = FavouriteSerializer(
             data=data,
@@ -83,8 +75,6 @@ class RecipeViewSet(viewsets.ModelViewSet):
     @action(detail=True, permission_classes=[IsAuthorOrAdminOrReadOnly])
     def shopping_cart(self, request, pk):
         """Кастомный метод обработки эндпоинта ./shopping_cart/."""
-        if request.user.is_anonymous:
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
         data = {'user': request.user.id, 'recipe': pk}
         serializer = ShoppingListSerializer(
             data=data,
@@ -98,59 +88,29 @@ class RecipeViewSet(viewsets.ModelViewSet):
     def delete_shopping_cart(self, request, pk):
         if request.user.is_anonymous:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
+        bad_request = Response(
+            'Данный рецепт уже отсутствует в списке покупок.',
+            status=status.HTTP_400_BAD_REQUEST,
+        )
         try:
-            recipe = Recipe.objects.get(id=pk)
+            try:
+                recipe = Recipe.objects.get(id=pk)
+            except Recipe.DoesNotExist:
+                return bad_request
             shopping_list = ShoppingList.objects.get(
                 user=request.user,
                 recipe=recipe,
             )
             shopping_list.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
-        except Recipe.DoesNotExist:
-            return Response(
-                'Данный рецепт уже отсутствует в списке покупок.',
-                status=status.HTTP_400_BAD_REQUEST,
-            )
         except ShoppingList.DoesNotExist:
-            return Response(
-                'Данный рецепт уже отсутствует в списке покупок.',
-                status=status.HTTP_400_BAD_REQUEST,
-            )
+            return bad_request
 
     @action(detail=False, permission_classes=[permissions.IsAuthenticated])
     def download_shopping_cart(self, request):
         """Кастомный метод обработки эндпоинта ./download_shopping_cart/."""
-        shopping_list = request.user.shopping_list.all()
-        list_to_buy = get_ingredients_list(shopping_list)
-        return download_response(list_to_buy, 'Список покупок.txt')
-
-
-def get_ingredients_list(recipes):
-    """Функция формирования списка покупок."""
-    ingredients_dict = {}
-    list_to_buy = []
-    for recipe in recipes:
-        ingredients = RecipeIngredients.objects.filter(recipe=recipe.recipe)
-        for ingredient in ingredients:
-            amount = ingredient.amount
-            name = ingredient.ingredient.name
-            measurement_unit = ingredient.ingredient.measurement_unit
-            if name in ingredients_dict:
-                ingredients_dict[name]['amount'] += amount
-            else:
-                ingredients_dict[name] = {
-                    'meas_un': measurement_unit,
-                    'amount': amount,
-                }
-    for key, vlue in ingredients_dict.items():
-        list_to_buy.append(
-            f'{key} - {vlue["amount"]} {vlue["meas_un"]}.\n',
+        ingredients_list = RecipeIngredient.objects.filter(
+            recipe__shopping_cart__user=request.user
         )
-    return list_to_buy
-
-
-def download_response(download_list, filename):
-    """Функция формирования файла для скачивания списка покупок."""
-    response = HttpResponse(download_list, 'Content-Type: text/plain')
-    response['Content-Disposition'] = f'attachment; filename="{filename}"'
-    return response
+        list_to_buy = get_ingredients_list(ingredients_list)
+        return download_response(list_to_buy, 'Список покупок.txt')

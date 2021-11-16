@@ -10,14 +10,10 @@ class Ingredient(models.Model):
 
     name = models.CharField(
         max_length=200,
-        null=False,
-        blank=False,
         verbose_name='Название ингредиента',
     )
     measurement_unit = models.CharField(
         max_length=200,
-        null=False,
-        blank=False,
         verbose_name='Единицы измерения',
     )
 
@@ -36,15 +32,11 @@ class Tag(models.Model):
     name = models.CharField(
         max_length=200,
         unique=True,
-        null=False,
-        blank=False,
         verbose_name='Название тега',
     )
     color = models.CharField(
         max_length=7,
         unique=True,
-        null=False,
-        blank=False,
         verbose_name='Цвет тега',
     )
     slug = models.SlugField(
@@ -76,8 +68,6 @@ class Recipe(models.Model):
     name = models.CharField(
         max_length=200,
         unique=True,
-        blank=False,
-        null=False,
         verbose_name='Название рецепта',
     )
     image = models.ImageField(
@@ -93,12 +83,12 @@ class Recipe(models.Model):
     )
     ingredients = models.ManyToManyField(
         Ingredient,
-        through='RecipeIngredients',
+        through='RecipeIngredient',
         verbose_name='Ингредиенты, используемые в рецепте',
     )
     tags = models.ManyToManyField(
         Tag,
-        through='RecipeTags',
+        through='RecipeTag',
         related_name='tags',
         verbose_name='Теги, используемые для рецепта',
     )
@@ -120,7 +110,7 @@ class Recipe(models.Model):
         return self.name[:2]
 
 
-class RecipeIngredients(models.Model):
+class RecipeIngredient(models.Model):
     """Модель, связывающая id рецепта с id ингредиента и его количеством."""
 
     recipe = models.ForeignKey(
@@ -145,7 +135,7 @@ class RecipeIngredients(models.Model):
         return 'Ингридиент в рецепте'
 
 
-class RecipeTags(models.Model):
+class RecipeTag(models.Model):
     """Модель, связывающая id рецепта с id тега."""
 
     recipe = models.ForeignKey(
@@ -160,6 +150,10 @@ class RecipeTags(models.Model):
     )
 
     class Meta:
+        constraints = [models.UniqueConstraint(
+            fields=['recipe', 'tag'],
+            name='unique_tag_in_recipe',
+        )]
         verbose_name = 'Теги рецепта'
         verbose_name_plural = 'Теги рецепта'
 
@@ -205,6 +199,7 @@ class ShoppingList(models.Model):
     recipe = models.ForeignKey(
         Recipe,
         on_delete=models.CASCADE,
+        related_name='shopping_cart',
         verbose_name='Рецепт',
     )
 

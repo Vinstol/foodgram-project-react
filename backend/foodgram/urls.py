@@ -11,6 +11,4 @@ api_patterns = [
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(api_patterns)),
-    # path('redoc/', TemplateView.as_view(template_name='data/redoc.html'),
-    #      name='redoc')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
