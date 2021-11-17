@@ -1,20 +1,18 @@
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import permissions, viewsets, status
-from rest_framework.decorators import action
-from rest_framework.response import Response
 from foodgram.pagination import CustomPageNumberPaginator
 from recipes.filters import IngredientsFilter, RecipeFilter
-from recipes.models import (
-    Favorite, Ingredient, Recipe, RecipeIngredient, ShoppingList, Tag
-)
 from recipes.mixins import RetriveAndListViewSet
+from recipes.models import (Favorite, Ingredient, Recipe, RecipeIngredient,
+                            ShoppingList, Tag)
 from recipes.permissions import IsAuthorOrAdminOrReadOnly
-from recipes.serializers import (
-    AddRecipeSerializer, FavouriteSerializer, IngredientsSerializer,
-    ShoppingListSerializer, ShowRecipeFullSerializer, TagsSerializer,
-)
+from recipes.serializers import (AddRecipeSerializer, FavouriteSerializer,
+                                 IngredientsSerializer, ShoppingListSerializer,
+                                 ShowRecipeFullSerializer, TagsSerializer)
 from recipes.utils import download_response, get_ingredients_list
+from rest_framework import permissions, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 
 class IngredientsViewSet(RetriveAndListViewSet):
