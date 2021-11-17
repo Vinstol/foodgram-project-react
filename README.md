@@ -38,8 +38,8 @@
 - scp docker-compose.yml username@host:/home/username/docker-compose.yml
 - scp nginx.conf username@host:/home/username/nginx.conf
 
-### На сервере создайте файл .env и впишите в него следующие переменные окружения:
-#### (Либо создайте файл .env локально и скопируйте на сервер аналогично предыдущему пункту)
+### На сервере создайте файл backend.env и впишите в него следующие переменные окружения:
+#### (Либо создайте файл backend.env локально и скопируйте на сервер аналогично предыдущему пункту)
 
 - SECRET_KEY=  #сюда впишите секретный ключ проекта django.
 - DB_ENGINE=django.db.backends.postgresql  # указываем, что работаем с postgresql.

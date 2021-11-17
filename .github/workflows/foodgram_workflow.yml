@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  linter:
+  Linter:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,7 +29,7 @@ jobs:
   build_and_push_to_docker_hub:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
-    needs: linter
+    needs: Linter
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -62,7 +62,7 @@ jobs:
             sudo docker pull vinstol/foodgram_backebd:latest
             sudo docker-compose stop
             sudo docker-compose rm backend
-            sudo docker-compose -f docker-compose.yml up -d
+            sudo docker-compose -f foodgram_docker-compose.yml up -d
 #             sudo docker-compose stop
 #             sudo docker-compose rm web
 #             rm .env
