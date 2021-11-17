@@ -1,6 +1,5 @@
 from django.urls import path, include
 from djoser.views import TokenCreateView, TokenDestroyView
-
 from users.views import FollowApiView, ListFollowViewSet
 
 urlpatterns = [

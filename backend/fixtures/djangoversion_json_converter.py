@@ -5,7 +5,6 @@
 """
 import json
 
-
 with open('ingredients.json', 'r', encoding='utf8') as a_file:
     json_file = a_file.read()
     ingr = json.loads(json_file)

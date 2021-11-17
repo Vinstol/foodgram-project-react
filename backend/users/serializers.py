@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from djoser.serializers import UserCreateSerializer, UserSerializer
 from rest_framework import serializers, status
 from rest_framework.response import Response
-
 from recipes.models import Recipe
 from users.models import Follow
 
