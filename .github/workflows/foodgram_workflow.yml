@@ -61,7 +61,7 @@ jobs:
           script: |
             sudo docker pull vinstol/foodgram_backend:latest
             sudo docker-compose up -d
-            sudo docker exec infra_backend_1 python manage.py loaddata fixtures/new_db.json
+            sudo docker exec vinstol-backend_backend_1 python manage.py loaddata fixtures/new_db.json
 
   send_message:
     runs-on: ubuntu-latest
