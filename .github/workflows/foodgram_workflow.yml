@@ -59,7 +59,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
-            sudo docker pull vinstol/foodgram_backebd:latest
+            sudo docker pull vinstol/foodgram_backend:latest
             sudo docker-compose stop
             sudo docker-compose rm backend
             sudo docker-compose -f foodgram_docker-compose.yml up -d
