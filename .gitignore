@@ -155,6 +155,9 @@ backend/static/
 # Flake8 linter
 .flake8
 
+# Tests
+backend/tests.py
+
 # DB fixtures
 backend/fixtures/db_13.11.2021.json
 
