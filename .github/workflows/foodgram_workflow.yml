@@ -63,8 +63,7 @@ jobs:
             cd foodgram-project-react/infra
             sudo docker-compose down
             sudo docker-compose up -d
-            sudo docker exec vinstol-backend_backend_1 python manage.py loaddata fixtures/new_db.json
-
+           
   send_message:
     runs-on: ubuntu-latest
     needs: deploy
