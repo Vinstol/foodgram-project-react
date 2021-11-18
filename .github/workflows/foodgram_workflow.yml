@@ -60,6 +60,7 @@ jobs:
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
             sudo docker pull vinstol/foodgram_backend:latest
+            sudo cd foodgram-project-react/infra
             sudo docker-compose up -d
             sudo docker exec vinstol-backend_backend_1 python manage.py loaddata fixtures/new_db.json
 
