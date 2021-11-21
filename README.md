@@ -68,13 +68,5 @@
 #### Вариант 2: Загрузка тестовой базы данных (с пользователями, рецептами и тегами):
 - docker exec infra-backend-1 python manage.py loaddata fixtures/new_db.json
 
-##### Аккаунт администратора Django:
-- Пользователь: admin@admin.ru
-- Пароль: admin
-
-##### Аккаунт пользователя Us:
-- Пользователь: us@ya.ru
-- Пароль: qwerty_us
-
 ### В данный момент проект доступен по следующему адресу:
 - https://vinstolbox.tk/
